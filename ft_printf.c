@@ -6,7 +6,7 @@
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:43:49 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/24 13:40:13 by ncontrem         ###   ########.fr       */
+/*   Updated: 2025/10/24 13:45:31 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	ft_printf(const char *str, ...)
 	va_start(args, str);
 	while (index < ft_strlen(str))
 	{
+		if (str[index] == '%')
+			fstring = parse_args(&str[index]);
 		index ++;
 	}
 	va_end(args);
