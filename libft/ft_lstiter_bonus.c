@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/24 10:43:52 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/25 12:07:52 by ncontrem         ###   ########.fr       */
+/*   Created: 2025/10/18 08:58:29 by ncontrem          #+#    #+#             */
+/*   Updated: 2025/10/20 09:20:27 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include "libft.h"
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdarg.h>
+void	ft_lstiter(t_list *lst, void (*f)(void *))
+{
+	t_list	*tmp_lst;
 
-char	*ft_free_strjoin(char *s1, char *s2);
-
-#endif
+	tmp_lst = lst;
+	while (tmp_lst)
+	{
+		f(tmp_lst->content);
+		tmp_lst = tmp_lst->next;
+	}
+}

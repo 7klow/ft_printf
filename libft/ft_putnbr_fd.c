@@ -1,23 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/24 10:43:52 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/25 12:07:52 by ncontrem         ###   ########.fr       */
+/*   Created: 2025/10/15 12:27:56 by ncontrem          #+#    #+#             */
+/*   Updated: 2025/10/18 10:30:51 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include "libft.h"
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdarg.h>
+void	ft_putnbr_fd(int n, int fd)
+{
+	long	nbr;
 
-char	*ft_free_strjoin(char *s1, char *s2);
+	nbr = n;
+	if (nbr < 0)
+	{
+		nbr = -nbr;
+		ft_putchar_fd('-', fd);
+	}
+	if (nbr >= 10)
+	{
+		ft_putnbr_fd((nbr / 10), fd);
+		ft_putnbr_fd((nbr % 10), fd);
+	}
+	else
+		ft_putchar_fd((nbr + '0'), fd);
+}
 
-#endif
+/* int	main(void)
+{
+	ft_putnbr_fd(INT_MAX, 1);
+	ft_putnbr_fd(INT_MIN, 1);
+	return(1);
+} */

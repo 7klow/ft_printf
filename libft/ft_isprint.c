@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/24 10:43:52 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/25 12:07:52 by ncontrem         ###   ########.fr       */
+/*   Created: 2025/10/13 12:31:10 by ncontrem          #+#    #+#             */
+/*   Updated: 2025/10/17 09:58:00 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include "libft.h"
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdarg.h>
+int	ft_isprint(int c)
+{
+	if ((c >= 32 && c <= 126))
+		return (1);
+	return (0);
+}
 
-char	*ft_free_strjoin(char *s1, char *s2);
-
-#endif
+/* int	main(void)
+{
+	printf("%d", ft_isprint('\n'));
+	printf("%d", ft_isprint('O'));
+	printf("%d", ft_isprint('z'));
+	printf("%d", ft_isprint('4'));
+	printf("%d", ft_isprint(' '));
+	printf("%d", ft_isprint(127));
+	return (1);
+} */

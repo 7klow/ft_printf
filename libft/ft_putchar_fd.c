@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/24 10:43:52 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/25 12:07:52 by ncontrem         ###   ########.fr       */
+/*   Created: 2025/10/15 11:48:39 by ncontrem          #+#    #+#             */
+/*   Updated: 2025/10/18 10:30:48 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include "libft.h"
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdarg.h>
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
 
-char	*ft_free_strjoin(char *s1, char *s2);
-
-#endif
+/* int	main(void)
+{
+	ft_putchar_fd('A', 1);
+	return (1);
+} */

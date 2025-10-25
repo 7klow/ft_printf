@@ -1,23 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/24 10:43:52 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/25 12:07:52 by ncontrem         ###   ########.fr       */
+/*   Created: 2025/10/13 12:31:06 by ncontrem          #+#    #+#             */
+/*   Updated: 2025/10/17 09:57:30 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include "libft.h"
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdarg.h>
+void	*ft_memset(void *s, int c, size_t n)
+{
+	unsigned char	*str;
+	size_t			index;
 
-char	*ft_free_strjoin(char *s1, char *s2);
+	str = (unsigned char *)s;
+	index = 0;
+	while (index < n)
+	{
+		str[index] = (unsigned char)c;
+		index++;
+	}
+	return (s);
+}
 
-#endif
+/* int main()
+{
+    char str[50] = "Ceci est un test pour ft_memset.";
+    printf("\nBefore: %s\n", str);
+    ft_memset(str, '/', 12);
+    printf("After:  %s", str);
+    return 0;
+}
+ */

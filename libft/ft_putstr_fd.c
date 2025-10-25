@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/24 10:43:52 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/25 12:07:52 by ncontrem         ###   ########.fr       */
+/*   Created: 2025/10/15 12:03:03 by ncontrem          #+#    #+#             */
+/*   Updated: 2025/10/18 10:30:50 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include "libft.h"
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdarg.h>
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	index;
 
-char	*ft_free_strjoin(char *s1, char *s2);
+	index = 0;
+	while (s[index])
+	{
+		write(fd, &s[index], 1);
+		index++;
+	}
+}
 
-#endif
+/* int	main(void)
+{
+	ft_putchar_fd("abcd efg hijklmnop q     rs t u v wx, y et z", 1);
+	return (1);
+} */

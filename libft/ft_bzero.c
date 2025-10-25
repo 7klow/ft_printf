@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/24 10:43:52 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/25 12:07:52 by ncontrem         ###   ########.fr       */
+/*   Created: 2025/10/13 12:31:00 by ncontrem          #+#    #+#             */
+/*   Updated: 2025/10/17 09:58:19 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include "libft.h"
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdarg.h>
+void	ft_bzero(void *s, size_t n)
+{
+	unsigned char	*str;
+	size_t			index;
 
-char	*ft_free_strjoin(char *s1, char *s2);
+	str = (unsigned char *)s;
+	index = 0;
+	while (index < n)
+	{
+		str[index] = 0;
+		index++;
+	}
+}
 
-#endif
+/* int main(void)
+{
+    char buffer[50];
+    ft_bzero(buffer, 50);
+    return (1);
+} */

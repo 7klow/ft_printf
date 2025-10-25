@@ -1,23 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/24 10:43:52 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/25 12:07:52 by ncontrem         ###   ########.fr       */
+/*   Created: 2025/10/13 18:54:21 by ncontrem          #+#    #+#             */
+/*   Updated: 2025/10/17 09:53:31 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include "libft.h"
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdarg.h>
+char	*ft_strdup(const char *s)
+{
+	char	*str;
+	size_t	index;
 
-char	*ft_free_strjoin(char *s1, char *s2);
+	index = 0;
+	str = malloc(sizeof(char) * ft_strlen(s) + 1);
+	if (!str)
+		return (NULL);
+	while (s[index])
+	{
+		str[index] = s[index];
+		index ++;
+	}
+	str[index] = '\0';
+	return (str);
+}
 
-#endif
+/* int	main(void)
+{
+	char	*dst;
+
+	dst = ft_strdup("Salut !");
+	printf("%s", dst);
+	free(dst);
+	return (1);
+} */

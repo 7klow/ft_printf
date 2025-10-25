@@ -1,41 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/24 10:44:00 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/25 12:10:13 by ncontrem         ###   ########.fr       */
+/*   Created: 2025/10/14 10:30:09 by ncontrem          #+#    #+#             */
+/*   Updated: 2025/10/17 09:53:16 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-char	*ft_free_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*final_string;
-	int		i;
+	int		index;
 	int		j;
+	char	*final_string;
 
-	i = 0;
+	index = 0;
 	j = 0;
-	if (!s1 && !s2)
+	if (!s1 || !s2)
 		return (NULL);
-	if (!s1)
-		return (ft_strdup(s2));
-	if (!s2)
-		return (ft_strdup(s1));
 	final_string = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!final_string)
 		return (NULL);
-	while (s1[i])
+	while (s1[index])
 	{
-		final_string[i] = s1[i];
-		i++;
+		final_string[index] = s1[index];
+		index++;
 	}
 	while (s2[j])
-		final_string[i++] = s2[j++];
-	final_string[i] = '\0';
-	return (free(s1), final_string);
+	{
+		final_string[j + index] = s2[j];
+		j++;
+	}
+	final_string[j + index] = '\0';
+	return (final_string);
 }
+
+/* int	main(void)
+{
+	char	*str1 = "Ceci est un test !";
+	char	*str2 = " Ca marche bien.";
+	char	*str_final;
+
+	str_final = ft_strjoin(str1, str2);
+	printf("%s", str_final);
+	free(str_final);
+	return (1);
+} */

@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/24 10:43:52 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/25 12:07:52 by ncontrem         ###   ########.fr       */
+/*   Created: 2025/10/13 12:31:54 by ncontrem          #+#    #+#             */
+/*   Updated: 2025/10/17 09:58:09 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include "libft.h"
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdarg.h>
+int	ft_isalpha(int c)
+{
+	if ((c >= 'a' && c <= 'z') || \
+		(c >= 'A' && c <= 'Z'))
+		return (1);
+	return (0);
+}
 
-char	*ft_free_strjoin(char *s1, char *s2);
-
-#endif
+/* int	main(void)
+{
+	printf("%d", ft_isalpha('\n'));
+	printf("%d", ft_isalpha('O'));
+	printf("%d", ft_isalpha('z'));
+	printf("%d", ft_isalpha('4'));
+	printf("%d", ft_isalpha(' '));
+	return (1);
+} */

@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/24 10:43:52 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/25 12:07:52 by ncontrem         ###   ########.fr       */
+/*   Created: 2025/10/13 13:21:32 by ncontrem          #+#    #+#             */
+/*   Updated: 2025/10/18 10:40:37 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "libft.h"
 
-# include "libft.h"
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdarg.h>
+char	*ft_strchr(const char *s, int c)
+{
+	int	index;
 
-char	*ft_free_strjoin(char *s1, char *s2);
+	index = 0;
+	while (s[index])
+	{
+		if (s[index] == (char)c)
+			return ((char *)&s[index]);
+		index++;
+	}
+	if ((char)c == '\0')
+		return ((char *)&s[index]);
+	return (NULL);
+}
 
-#endif
+/* int	main(void)
+{
+	printf("\n%s", ft_strchr("Ceci est un test.", 'e'));
+	printf("\n%s", ft_strchr("Ceci est un test.", 't'));
+	return (1);
+} */
