@@ -6,7 +6,7 @@
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:43:49 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/25 12:27:37 by ncontrem         ###   ########.fr       */
+/*   Updated: 2025/10/25 13:23:43 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 char	*format_pourcent(char *fstring, va_list args, char c)
 {
 	if (c == 'c')
-		return ;
-	else if (c == 's')	
-		return ;
-	else if (c == 'p')	
-		return ;
+		return (add_char(fstring, va_arg(args, char)));
+	else if (c == 's')
+		return (ft_free_strjoin(fstring, va_arg(args, char *)));
+	else if (c == 'p')
+		return (va_arg(args, void *)); // faire func get_adresse hexa
 	else if (c == 'i' || c == 'd')	
-		return ;
-	else if (c == 'u')	
-		return ;
-	else if (c == 'x')	
-		return ;
-	else if (c == 'X')	
-		return ;
-	else if (c == '%')	
-		return ;
+		return (ft_free_strjoin(fstring, ft_itoa(va_arg(args, int))));
+	else if (c == 'u')
+		return (ft_free_strjoin(fstring, ft_utoa(va_arg(args, unsigned int))));
+	else if (c == 'x')
+		return (va_arg(args, int)); // Hexadecimal num lowercase
+	else if (c == 'X')
+		return (va_arg(args, int)); // Hexadecimal num Uppercase
+	else if (c == '%')
+		return (add_char(fstring, '%'));
 	return (NULL);
 }
 

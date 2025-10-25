@@ -6,7 +6,7 @@
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:44:00 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/25 12:10:13 by ncontrem         ###   ########.fr       */
+/*   Updated: 2025/10/25 13:19:18 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,3 +39,90 @@ char	*ft_free_strjoin(char *s1, char *s2)
 	final_string[i] = '\0';
 	return (free(s1), final_string);
 }
+
+char	*add_char(char *str, char c)
+{
+	char	*fstr;
+	int		index;
+
+	index = 0;
+	fstr = malloc(ft_strlen(str) + 2);
+	if (!fstr)
+		return (NULL);
+	while (str[index])
+	{
+		fstr[index] = str[index];
+		index++;
+	}
+	fstr[index] = c;
+	fstr[index + 1] = '\0';
+	free(str);
+	return (fstr);
+}
+
+static unsigned long	count_itoa(long nb)
+{
+	unsigned long	count;
+
+	count = 0;
+	if (nb < 0)
+	{
+		count += 1;
+		nb = -nb;
+	}
+	while (nb > 9)
+	{
+		nb = nb / 10;
+		count++;
+	}
+	if (nb >= 0 && nb <= 9)
+		count += 1;
+	return (count);
+}
+
+char	*ft_utoa(unsigned int n)
+{
+	char			*string;
+	unsigned long	count;
+	unsigned long	nb;
+
+	nb = (long)n;
+	count = (count_itoa(nb));
+	string = malloc(sizeof(char) * (count + 1));
+	if (!string)
+		return (NULL);
+	string[count] = '\0';
+	if (nb == 0)
+		string[--count] = '0';
+	if (nb < 0)
+	{
+		string[0] = '-';
+		nb = -nb;
+	}
+	while (nb > 0)
+	{
+		string[--count] = 48 + (nb % 10);
+		nb = nb / 10;
+	}
+	return (string);
+}
+
+/* char	*get_address(void *adr)
+{
+	unsigned char	*adr_hex;
+	char			hex;
+	int				index;
+
+	index = 0;
+	hex = ft_strdup("123456789ABCDEF");
+	if (!hex)
+		return (NULL);
+	adr_hex = (unsigned char *)adr;
+	while (adr_hex)
+	{
+		adr_hex[index] = (unsigned char)hex[(adr_hex[index] / 16) % 10];
+		index++;
+	}
+	adr_hex[index] = '\0';
+	return (adr_hex);
+} */
