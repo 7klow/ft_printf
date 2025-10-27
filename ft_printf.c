@@ -6,7 +6,7 @@
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:43:49 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/27 19:15:38 by ncontrem         ###   ########.fr       */
+/*   Updated: 2025/10/27 20:11:45 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,22 @@ char	*format_pourcent(char *fstring, va_list args, char c)
 	return (NULL);
 }
 
+
 char	*format_string(char *str, char *fstring, va_list args)
 {
+	int	index;
+
+	index = 0;
 	
+	while (str[index])
+	{
+		if (str[index] == '%' && is_valid_symb(str[index + 1]))
+		{
+			fstring = format_pourcent(fstring, args, str[index + 1]);
+			index++;
+		}
+		index++;
+	}
 }
 
 int	ft_printf(const char *str, ...)
