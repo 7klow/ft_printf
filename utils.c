@@ -6,11 +6,26 @@
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:44:00 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/25 13:19:18 by ncontrem         ###   ########.fr       */
+/*   Updated: 2025/10/27 11:40:24 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+unsigned long	ft_nbrlen(long nb)
+{
+	unsigned long	count;
+
+	count = 0;
+	while (nb > 9)
+	{
+		nb = nb / 10;
+		count++;
+	}
+	if (nb >= 0 && nb <= 9)
+		count += 1;
+	return (count);
+}
 
 char	*ft_free_strjoin(char *s1, char *s2)
 {
@@ -60,45 +75,20 @@ char	*add_char(char *str, char c)
 	return (fstr);
 }
 
-static unsigned long	count_itoa(long nb)
-{
-	unsigned long	count;
-
-	count = 0;
-	if (nb < 0)
-	{
-		count += 1;
-		nb = -nb;
-	}
-	while (nb > 9)
-	{
-		nb = nb / 10;
-		count++;
-	}
-	if (nb >= 0 && nb <= 9)
-		count += 1;
-	return (count);
-}
-
 char	*ft_utoa(unsigned int n)
 {
 	char			*string;
 	unsigned long	count;
 	unsigned long	nb;
 
-	nb = (long)n;
-	count = (count_itoa(nb));
+	nb = (unsigned long)n;
+	count = (nbrlen(nb));
 	string = malloc(sizeof(char) * (count + 1));
 	if (!string)
 		return (NULL);
 	string[count] = '\0';
 	if (nb == 0)
 		string[--count] = '0';
-	if (nb < 0)
-	{
-		string[0] = '-';
-		nb = -nb;
-	}
 	while (nb > 0)
 	{
 		string[--count] = 48 + (nb % 10);
@@ -106,23 +96,3 @@ char	*ft_utoa(unsigned int n)
 	}
 	return (string);
 }
-
-/* char	*get_address(void *adr)
-{
-	unsigned char	*adr_hex;
-	char			hex;
-	int				index;
-
-	index = 0;
-	hex = ft_strdup("123456789ABCDEF");
-	if (!hex)
-		return (NULL);
-	adr_hex = (unsigned char *)adr;
-	while (adr_hex)
-	{
-		adr_hex[index] = (unsigned char)hex[(adr_hex[index] / 16) % 10];
-		index++;
-	}
-	adr_hex[index] = '\0';
-	return (adr_hex);
-} */
