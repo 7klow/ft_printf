@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_hex.c                                        :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/27 10:13:29 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/27 20:11:43 by ncontrem         ###   ########.fr       */
+/*   Created: 2025/10/24 10:43:58 by ncontrem          #+#    #+#             */
+/*   Updated: 2025/10/24 13:37:35 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,50 +25,61 @@ void	str_toupper(char *str)
 	}
 }
 
+static int	hexa_len(unsigned long n)
+{
+	int	len;
+
+	len = 1;
+	while (n >= 16)
+	{
+		n /= 16;
+		len++;
+	}
+	return (len);
+}
+
 char	*get_addr_hexa(void *addr)
 {
 	unsigned long	address;
-	char			*string;
-	long			count;
+	char			*str;
+	int				len;
 
+	if (!addr)
+		return (ft_strdup("0x0"));
 	address = (unsigned long)addr;
-	count = ft_nbrlen(address);
-	string = malloc(count + 1);
-	if (!string)
+	len = hexa_len(address);
+	str = malloc(len + 3);
+	if (!str)
 		return (NULL);
-	string[count] = '\0';
-	if (address == 0)
-		string[--count] = '0';
-	while (address > 0)
+	str[len + 2] = '\0';
+	while (len-- > 0)
 	{
-		string[--count] = "0123456789abcdef"[address % 16];
+		str[len + 2] = "0123456789abcdef"[address % 16];
 		address /= 16;
 	}
-	string[count - 2] = '0';
-	string[count - 1] = 'x';
-	string = &string[count - 2];
-	return (string);
+	str[0] = '0';
+	str[1] = 'x';
+	return (str);
 }
 
-char	*get_int_hexa(int nb, int is_toupper)
+char	*get_int_hexa(unsigned int nb, int is_toupper)
 {
-	char	*string;
-	long	nbr;
-	long	count;
+	char	*str;
+	int		len;
 
-	nbr = nb;
-	count = ft_nbrlen((long)nbr);
-	string = malloc(count + 1);
-	string[count] = '\0';
-	if (nbr == 0)
-		string[--count] = '0';
-	while (nbr > 0)
+	if (nb == 0)
+		return (ft_strdup("0"));
+	len = hexa_len((unsigned long)nb);
+	str = malloc(len + 1);
+	if (!str)
+		return (NULL);
+	str[len] = '\0';
+	while (len-- > 0)
 	{
-		string[--count] = "0123456789abcdef"[nbr % 16];
-		nbr /= 16;
+		str[len] = "0123456789abcdef"[nb % 16];
+		nb /= 16;
 	}
-	string = &string[count];
 	if (is_toupper)
-		str_toupper(string);
-	return (string);
+		str_toupper(str);
+	return (str);
 }

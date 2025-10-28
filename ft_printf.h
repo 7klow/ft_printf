@@ -18,12 +18,13 @@
 # include <stdlib.h>
 # include <stdarg.h>
 
+int				ft_printf(const char *str, ...);
 char			*ft_free_strjoin(char *s1, char *s2);
 char			*add_char(char *str, char c);
 unsigned long	ft_nbrlen(long nb);
 char			*ft_utoa(unsigned int n);
 char			*get_addr_hexa(void *addr);
 void			str_toupper(char *str);
-char			*get_int_hexa(int nb, int is_toupper);
+char			*get_int_hexa(unsigned int nb, int is_toupper);
 
 #endif

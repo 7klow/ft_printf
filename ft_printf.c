@@ -12,17 +12,17 @@
 
 #include "ft_printf.h"
 
-int	is_valid_symb(char c)
+static int	is_valid_symb(char c)
 {
 	return (c == 'c' || c == 's' || c == 'p' \
 			|| c == 'd' || c == 'i' || c == 'u' \
 			|| c == 'x' || c == 'X' || c == '%');
 }
 
-char	*format_pourcent(char *fstring, va_list args, char c)
+static char	*format_pourcent(char *fstring, va_list args, char c)
 {
 	if (c == 'c')
-		return (add_char(fstring, va_arg(args, char)));
+		return (add_char(fstring, va_arg(args, int)));
 	else if (c == 's')
 		return (ft_free_strjoin(fstring, va_arg(args, char *)));
 	else if (c == 'p')
@@ -32,47 +32,49 @@ char	*format_pourcent(char *fstring, va_list args, char c)
 	else if (c == 'u')
 		return (ft_free_strjoin(fstring, ft_utoa(va_arg(args, unsigned int))));
 	else if (c == 'x')
-		return (ft_free_strjoin(fstring, get_int_hexa(va_arg(args, int), 0)));
+		return (ft_free_strjoin(fstring, get_int_hexa(va_arg(args, unsigned int), 0)));
 	else if (c == 'X')
-		return (ft_free_strjoin(fstring, get_int_hexa(va_arg(args, int), 1)));
+		return (ft_free_strjoin(fstring, get_int_hexa(va_arg(args, unsigned int), 1)));
 	else if (c == '%')
 		return (add_char(fstring, '%'));
 	return (NULL);
 }
 
 
-char	*format_string(char *str, char *fstring, va_list args)
+static char	*format_string(char *str, char *fstring, va_list args)
 {
 	int	index;
 
 	index = 0;
-	
 	while (str[index])
 	{
-		if (str[index] == '%' && is_valid_symb(str[index + 1]))
+		if (str[index] == '%' && str[index + 1] && is_valid_symb(str[index + 1]))
 		{
 			fstring = format_pourcent(fstring, args, str[index + 1]);
+			index += 2;
+		}
+		else
+		{
+			fstring = add_char(fstring, str[index]);
 			index++;
 		}
-		index++;
 	}
+	return (fstring);
 }
 
 int	ft_printf(const char *str, ...)
 {
 	char		*fstring;
 	va_list		args;
-	int			index;
+	int			ret;
 
-	index = 0;
 	va_start(args, str);
-	fstring = format_string(str, fstring, args);
+	fstring = ft_strdup("");
 	if (!fstring)
-	{
-		fstring = ft_strdup(str);
-		if (!fstring)
-			return (NULL);
-	}
+		return (0);
+	fstring = format_string((char *)str, fstring, args);
 	va_end(args);
-	return ((int)write(1, fstring, ft_strlen(fstring)));
+	ret = write(1, fstring, ft_strlen(fstring));
+	free(fstring);
+	return (ret);
 }

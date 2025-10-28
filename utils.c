@@ -14,7 +14,7 @@
 
 unsigned long	ft_nbrlen(long nb)
 {
-	unsigned long	count;
+	long	count;
 
 	count = 0;
 	while (nb > 9)
@@ -43,7 +43,7 @@ char	*ft_free_strjoin(char *s1, char *s2)
 		return (ft_strdup(s1));
 	final_string = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!final_string)
-		return (NULL);
+		return (free(s1), NULL);
 	while (s1[i])
 	{
 		final_string[i] = s1[i];
@@ -55,25 +55,43 @@ char	*ft_free_strjoin(char *s1, char *s2)
 	return (free(s1), final_string);
 }
 
+static char	*char_err(char c)
+{
+	char	*new;
+
+	new = malloc(2);
+	if (!new)
+		return (NULL);
+	new[0] = c;
+	new[1] = '\0';
+	return (new);
+}
+
 char	*add_char(char *str, char c)
 {
 	char	*fstr;
-	int		index;
+	int		i;
 
-	index = 0;
+	if (!str)
+		return (char_err(c));
 	fstr = malloc(ft_strlen(str) + 2);
 	if (!fstr)
-		return (NULL);
-	while (str[index])
 	{
-		fstr[index] = str[index];
-		index++;
+		free(str);
+		return (NULL);
 	}
-	fstr[index] = c;
-	fstr[index + 1] = '\0';
+	i = 0;
+	while (str[i])
+	{
+		fstr[i] = str[i];
+		i++;
+	}
+	fstr[i] = c;
+	fstr[i + 1] = '\0';
 	free(str);
 	return (fstr);
 }
+
 
 char	*ft_utoa(unsigned int n)
 {
@@ -82,7 +100,7 @@ char	*ft_utoa(unsigned int n)
 	unsigned long	nb;
 
 	nb = (unsigned long)n;
-	count = (nbrlen(nb));
+	count = (ft_nbrlen(nb));
 	string = malloc(sizeof(char) * (count + 1));
 	if (!string)
 		return (NULL);
