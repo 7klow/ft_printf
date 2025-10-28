@@ -7,7 +7,7 @@ SRC_LIBFT = libft/ft_atoi.c libft/ft_isalpha.c libft/t_itoa.c libft/ft_memcpy.c 
 		libft/ft_isalnum.c libft/ft_isprint.c libft/ft_memcmp.c libft/ft_putchar_fd.c libft/ft_split.c libft/ft_strjoin.c libft/ft_strmapi.c libft/ft_strtrim.c |
 		libft/ft_lstdelone_bonus.c libft/ft_lstnew_bonus.c libft/ft_lstadd_back_bonus.c libft/ft_lstiter_bonus.c libft/ft_lstsize_bonus.c \
 		libft/ft_lstadd_front_bonus.c libft/ft_lstlast_bonus.c libft/ft_lstclear_bonus.c libft/ft_lstmap_bonus.c 
-SRC_PRINTF = ft_printf.c utils.c
+SRC_PRINTF = ft_printf.c utils.c utils_hex.c
 OBJ_LIBFT = $(SRC_LIBFT:.c=.o)
 OBJ_PRINTF = $(SRC_PRINTF:.c=.o)
 NAME = libftprintf.a
