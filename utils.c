@@ -6,7 +6,7 @@
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:44:00 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/27 18:39:52 by ncontrem         ###   ########.fr       */
+/*   Updated: 2025/10/28 16:26:23 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ unsigned long	ft_nbrlen(long nb)
 	return (count);
 }
 
-char	*ft_free_strjoin(char *s1, char *s2)
+char	*ft_fjoin(char *s1, char *s2)
 {
 	char	*final_string;
 	int		i;
@@ -40,7 +40,7 @@ char	*ft_free_strjoin(char *s1, char *s2)
 	if (!s1)
 		return (ft_strdup(s2));
 	if (!s2)
-		return (ft_strdup(s1));
+		return (ft_fjoin(ft_strdup(s1), "(null)"));
 	final_string = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!final_string)
 		return (free(s1), NULL);
@@ -67,31 +67,27 @@ static char	*char_err(char c)
 	return (new);
 }
 
-char	*add_char(char *str, char c)
+char	*add_char(char *str, int c)
 {
 	char	*fstr;
-	int		i;
+	int		index;
 
+	index = 0;
 	if (!str)
-		return (char_err(c));
+		return (char_err((char)c));
 	fstr = malloc(ft_strlen(str) + 2);
 	if (!fstr)
+		return (free(str), NULL);
+	while (str[index])
 	{
-		free(str);
-		return (NULL);
+		fstr[index] = str[index];
+		index++;
 	}
-	i = 0;
-	while (str[i])
-	{
-		fstr[i] = str[i];
-		i++;
-	}
-	fstr[i] = c;
-	fstr[i + 1] = '\0';
+	fstr[index] = (char)c;
+	fstr[index + 1] = '\0';
 	free(str);
 	return (fstr);
 }
-
 
 char	*ft_utoa(unsigned int n)
 {

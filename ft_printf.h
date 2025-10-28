@@ -6,7 +6,7 @@
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:43:52 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/27 20:11:44 by ncontrem         ###   ########.fr       */
+/*   Updated: 2025/10/28 16:26:21 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 # include <stdarg.h>
 
 int				ft_printf(const char *str, ...);
-char			*ft_free_strjoin(char *s1, char *s2);
-char			*add_char(char *str, char c);
+char			*ft_fjoin(char *s1, char *s2);
+char			*add_char(char *str, int c);
 unsigned long	ft_nbrlen(long nb);
 char			*ft_utoa(unsigned int n);
-char			*get_addr_hexa(void *addr);
+char			*addr_hexa(void *addr);
 void			str_toupper(char *str);
-char			*get_int_hexa(unsigned int nb, int is_toupper);
+char			*int_hexa(unsigned int nb, int is_toupper);
 
 #endif

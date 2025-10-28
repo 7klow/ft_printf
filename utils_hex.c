@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   utils_hex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:43:58 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/24 13:37:35 by ncontrem         ###   ########.fr       */
+/*   Updated: 2025/10/28 16:26:25 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	hexa_len(unsigned long n)
 	return (len);
 }
 
-char	*get_addr_hexa(void *addr)
+char	*addr_hexa(void *addr)
 {
 	unsigned long	address;
 	char			*str;
@@ -62,7 +62,7 @@ char	*get_addr_hexa(void *addr)
 	return (str);
 }
 
-char	*get_int_hexa(unsigned int nb, int is_toupper)
+char	*int_hexa(unsigned int nb, int is_toupper)
 {
 	char	*str;
 	int		len;
