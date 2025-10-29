@@ -15,8 +15,8 @@
 static int	is_valid_symb(char c)
 {
 	return (c == 'c' || c == 's' || c == 'p' \
-			|| c == 'd' || c == 'i' || c == 'u' \
-			|| c == 'x' || c == 'X' || c == '%');
+		|| c == 'd' || c == 'i' || c == 'u' \
+		|| c == 'x' || c == 'X' || c == '%');
 }
 
 static char	*format_percent(char *fstring, va_list args, char c)
@@ -24,7 +24,7 @@ static char	*format_percent(char *fstring, va_list args, char c)
 	if (c == 'c')
 		return (add_char(fstring, va_arg(args, int)));
 	else if (c == 's')
-		return (ft_fjoin(fstring, va_arg(args, char *)));
+		return (ft_fjoin(fstring, ft_str_nsafe(va_arg(args, char *))));
 	else if (c == 'p')
 		return (ft_fjoin(fstring, addr_hexa(va_arg(args, void *))));
 	else if (c == 'i' || c == 'd')
@@ -37,45 +37,50 @@ static char	*format_percent(char *fstring, va_list args, char c)
 		return (ft_fjoin(fstring, int_hexa(va_arg(args, unsigned int), 1)));
 	else if (c == '%')
 		return (add_char(fstring, '%'));
-	return (ft_fjoin(fstring, ft_strdup("(null)")));
+	return (fstring);
 }
 
-static char	*format_string(char *str, char *fstring, va_list args)
+static char	*format_string(const char *str, char *fstring, va_list args)
 {
 	int	index;
 
 	index = 0;
 	while (str[index])
 	{
-		if (str[index] == '%' && str[index + 1] && \
-			is_valid_symb(str[index + 1]))
+		if (str[index] == '%' && str[index + 1])
 		{
-			fstring = format_percent(fstring, args, str[index + 1]);
-			index += 2;
+			if (is_valid_symb(str[index + 1]))
+			{
+				fstring = format_percent(fstring, args, str[index + 1]);
+				index += 2;
+				continue ;
+			}
 		}
-		else
-		{
-			fstring = add_char(fstring, str[index]);
-			index++;
-		}
+		fstring = add_char(fstring, str[index]);
+		index++;
 	}
 	return (fstring);
 }
 
 int	ft_printf(const char *str, ...)
 {
-	char		*fstring;
-	va_list		args;
-	int			count;
+	va_list	args;
+	char	*fstring;
+	int		count;
 
+	if (!str)
+		return (-1);
 	va_start(args, str);
 	fstring = ft_strdup("");
 	if (!fstring)
-		return (0);
-	fstring = format_string((char *)str, fstring, args);
+		return (-1);
+	fstring = format_string(str, fstring, args);
 	va_end(args);
+	if (!fstring)
+		return (-1);
 	count = write(1, fstring, ft_strlen(fstring));
-	return (free(fstring), count);
+	free(fstring);
+	return (count);
 }
 
 int main(void)

@@ -12,15 +12,15 @@
 
 #include "ft_printf.h"
 
-void	str_toupper(char *str)
+void	str_toupper(char *s)
 {
 	int	index;
 
 	index = 0;
-	while (str[index])
+	while (s[index])
 	{
-		if (ft_isalpha(str[index]))
-			str[index] = ft_toupper(str[index]);
+		if (ft_isalpha(s[index]))
+			s[index] = ft_toupper(s[index]);
 		index++;
 	}
 }
@@ -45,33 +45,31 @@ char	*addr_hexa(void *addr)
 	int				len;
 
 	if (!addr)
-		return (NULL);
+		return (ft_strdup("(nil)"));
 	address = (unsigned long)addr;
-	if (address == 0)
-		return (NULL);
 	len = hexa_len(address);
 	str = malloc(len + 3);
 	if (!str)
 		return (NULL);
+	str[0] = '0';
+	str[1] = 'x';
 	str[len + 2] = '\0';
 	while (len-- > 0)
 	{
 		str[len + 2] = "0123456789abcdef"[address % 16];
 		address /= 16;
 	}
-	str[0] = '0';
-	str[1] = 'x';
 	return (str);
 }
 
-char	*int_hexa(unsigned int nb, int is_toupper)
+char	*int_hexa(unsigned int nb, int is_upper)
 {
 	char	*str;
 	int		len;
 
 	if (nb == 0)
 		return (ft_strdup("0"));
-	len = hexa_len((unsigned long)nb);
+	len = hexa_len(nb);
 	str = malloc(len + 1);
 	if (!str)
 		return (NULL);
@@ -81,7 +79,7 @@ char	*int_hexa(unsigned int nb, int is_toupper)
 		str[len] = "0123456789abcdef"[nb % 16];
 		nb /= 16;
 	}
-	if (is_toupper)
+	if (is_upper)
 		str_toupper(str);
 	return (str);
 }

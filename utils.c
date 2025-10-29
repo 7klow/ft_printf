@@ -12,100 +12,100 @@
 
 #include "ft_printf.h"
 
+#include "ft_printf.h"
+
 unsigned long	ft_nbrlen(long nb)
 {
-	long	count;
+	unsigned long	count;
 
+	if (nb == 0)
+		return (1);
 	count = 0;
-	while (nb > 9)
+	while (nb > 0)
 	{
-		nb = nb / 10;
+		nb /= 10;
 		count++;
 	}
-	if (nb >= 0 && nb <= 9)
-		count += 1;
 	return (count);
+}
+
+char	*ft_str_nsafe(char *s)
+{
+	if (!s)
+		return (ft_strdup("(null)"));
+	return (ft_strdup(s));
 }
 
 char	*ft_fjoin(char *s1, char *s2)
 {
-	char	*final_string;
-	int		i;
-	int		j;
+	char	*final;
+	size_t	len1;
+	size_t	len2;
+	size_t	index;
+	size_t	j;
 
-	i = 0;
-	j = 0;
-	if (!s1 && !s2)
-		return (ft_strdup("(null)"));
-	if (!s1)
-		return (ft_strdup(s2));
-	if (!s2)
-		return (ft_fjoin(ft_strdup(s1), "(null)"));
-	final_string = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (!final_string)
+	if (!s1 || !s2)
+		return (free(s1), ft_strdup("(null)"));
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	final = malloc(len1 + len2 + 1);
+	if (!final)
 		return (free(s1), NULL);
-	while (s1[i])
+	index = 0;
+	while (index < len1)
 	{
-		final_string[i] = s1[i];
-		i++;
+		final[index] = s1[index];
+		index++;
 	}
-	while (s2[j])
-		final_string[i++] = s2[j++];
-	final_string[i] = '\0';
-	return (free(s1), final_string);
-}
-
-static char	*char_err(char c)
-{
-	char	*new;
-
-	new = malloc(2);
-	if (!new)
-		return (NULL);
-	new[0] = c;
-	new[1] = '\0';
-	return (new);
+	j = 0;
+	while (j < len2)
+		final[index++] = s2[j++];
+	final[index] = '\0';
+	return (free(s1), final);
 }
 
 char	*add_char(char *str, int c)
 {
 	char	*fstr;
-	int		index;
+	size_t	len;
+	size_t	index;
 
-	index = 0;
 	if (!str)
-		return (char_err((char)c));
-	fstr = malloc(ft_strlen(str) + 2);
+		return (NULL);
+	len = ft_strlen(str);
+	fstr = malloc(len + 2);
 	if (!fstr)
 		return (free(str), NULL);
-	while (str[index])
+	index = 0;
+	while (index < len)
 	{
 		fstr[index] = str[index];
 		index++;
 	}
 	fstr[index] = (char)c;
 	fstr[index + 1] = '\0';
-	return (free(str), fstr);
+	free(str);
+	return (fstr);
 }
 
 char	*ft_utoa(unsigned int n)
 {
-	char			*string;
-	unsigned long	count;
+	char			*res;
 	unsigned long	nb;
+	size_t			len;
 
-	nb = (unsigned long)n;
-	count = (ft_nbrlen(nb));
-	string = malloc(sizeof(char) * (count + 1));
-	if (!string)
+	nb = n;
+	len = ft_nbrlen(nb);
+	res = malloc(len + 1);
+	if (!res)
 		return (NULL);
-	string[count] = '\0';
+	res[len] = '\0';
 	if (nb == 0)
-		string[--count] = '0';
+		res[--len] = '0';
 	while (nb > 0)
 	{
-		string[--count] = 48 + (nb % 10);
-		nb = nb / 10;
+		res[--len] = (nb % 10) + '0';
+		nb /= 10;
 	}
-	return (string);
+	return (res);
 }

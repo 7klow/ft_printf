@@ -20,11 +20,12 @@
 
 int				ft_printf(const char *str, ...);
 char			*ft_fjoin(char *s1, char *s2);
+char			*ft_str_nsafe(char *s);
 char			*add_char(char *str, int c);
 unsigned long	ft_nbrlen(long nb);
 char			*ft_utoa(unsigned int n);
 char			*addr_hexa(void *addr);
 void			str_toupper(char *str);
-char			*int_hexa(unsigned int nb, int is_toupper);
+char			*int_hexa(unsigned int nb, int is_upper);
 
 #endif
