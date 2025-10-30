@@ -6,7 +6,7 @@
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:44:00 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/30 13:57:02 by ncontrem         ###   ########.fr       */
+/*   Updated: 2025/10/30 14:18:01 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	*add_char(char *str, int c)
 	if (!str)
 		return (NULL);
 	len = ft_strlen(str);
-	fstr = malloc(len + 2);
+	fstr = malloc(len + (c != 0) + 1);
 	if (!fstr)
 		return (free(str), NULL);
 	index = 0;
@@ -80,8 +80,9 @@ char	*add_char(char *str, int c)
 		fstr[index] = str[index];
 		index++;
 	}
-	fstr[index] = (char)c;
-	fstr[index + 1] = '\0';
+	if (c != 0)
+		fstr[index++] = (char)c;
+	fstr[index] = '\0';
 	free(str);
 	return (fstr);
 }

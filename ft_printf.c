@@ -6,7 +6,7 @@
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:43:49 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/30 13:57:00 by ncontrem         ###   ########.fr       */
+/*   Updated: 2025/10/30 14:19:01 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	ft_printf(const char *str, ...)
 	return (count);
 }
 
-int main(void)
+/* int main(void)
 {
     int				len1;
     int				len2;
@@ -136,5 +136,5 @@ int main(void)
 
 	free(s);
     return (0);
-}
+} */
 // cc -Wall -Wextra -Werror ft_printf.c utils.c utils_hex.c libft/*.c -o test
