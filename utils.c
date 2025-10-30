@@ -6,7 +6,7 @@
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:44:00 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/29 10:55:13 by ncontrem         ###   ########.fr       */
+/*   Updated: 2025/10/30 13:57:02 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ char	*ft_fjoin(char *s1, char *s2)
 	size_t	j;
 
 	if (!s1 || !s2)
-		return (free(s1), ft_strdup("(null)"));
+		return (free(s1), free(s2), ft_strdup("(null)"));
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
 	final = malloc(len1 + len2 + 1);
 	if (!final)
-		return (free(s1), NULL);
+		return (free(s1), free(s2), NULL);
 	index = 0;
 	while (index < len1)
 	{
@@ -59,7 +59,7 @@ char	*ft_fjoin(char *s1, char *s2)
 	while (j < len2)
 		final[index++] = s2[j++];
 	final[index] = '\0';
-	return (free(s1), final);
+	return (free(s1), free(s2), final);
 }
 
 char	*add_char(char *str, int c)

@@ -6,7 +6,7 @@
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:43:49 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/29 10:49:46 by ncontrem         ###   ########.fr       */
+/*   Updated: 2025/10/30 13:57:00 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ static char	*format_string(const char *str, char *fstring, va_list args)
 		{
 			if (is_valid_symb(str[index + 1]))
 			{
+				while (str[index + 1] == ' ' || \
+					(str[index + 1] >= 9 && str[index + 1] <= 13))
+					index++;
 				fstring = format_percent(fstring, args, str[index + 1]);
 				if (!fstring)
 					return (NULL);
