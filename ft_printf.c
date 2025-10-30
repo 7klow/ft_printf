@@ -52,11 +52,15 @@ static char	*format_string(const char *str, char *fstring, va_list args)
 			if (is_valid_symb(str[index + 1]))
 			{
 				fstring = format_percent(fstring, args, str[index + 1]);
+				if (!fstring)
+					return (NULL);
 				index += 2;
 				continue ;
 			}
 		}
 		fstring = add_char(fstring, str[index]);
+		if (!fstring)
+			return (NULL);
 		index++;
 	}
 	return (fstring);
@@ -69,15 +73,15 @@ int	ft_printf(const char *str, ...)
 	int		count;
 
 	if (!str)
-		return (-1);
+		return (0);
 	va_start(args, str);
 	fstring = ft_strdup("");
 	if (!fstring)
-		return (-1);
+		return (0);
 	fstring = format_string(str, fstring, args);
 	va_end(args);
 	if (!fstring)
-		return (-1);
+		return (0);
 	count = write(1, fstring, ft_strlen(fstring));
 	free(fstring);
 	return (count);

@@ -12,8 +12,6 @@
 
 #include "ft_printf.h"
 
-#include "ft_printf.h"
-
 unsigned long	ft_nbrlen(long nb)
 {
 	unsigned long	count;
