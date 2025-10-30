@@ -12,99 +12,37 @@
 
 #include "ft_printf.h"
 
-unsigned long	ft_nbrlen(long nb)
+static int	nbrlen_u(unsigned int n)
 {
-	unsigned long	count;
+	int	len;
 
-	if (nb == 0)
-		return (1);
-	count = 0;
-	while (nb > 0)
+	len = 1;
+	while (n >= 10)
 	{
-		nb /= 10;
-		count++;
+		n /= 10;
+		len++;
 	}
-	return (count);
-}
-
-char	*ft_str_nsafe(char *s)
-{
-	if (!s)
-		return (ft_strdup("(null)"));
-	return (ft_strdup(s));
-}
-
-char	*ft_fjoin(char *s1, char *s2)
-{
-	char	*final;
-	size_t	len1;
-	size_t	len2;
-	size_t	index;
-	size_t	j;
-
-	if (!s1 || !s2)
-		return (free(s1), free(s2), ft_strdup("(null)"));
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	final = malloc(len1 + len2 + 1);
-	if (!final)
-		return (free(s1), free(s2), NULL);
-	index = 0;
-	while (index < len1)
-	{
-		final[index] = s1[index];
-		index++;
-	}
-	j = 0;
-	while (j < len2)
-		final[index++] = s2[j++];
-	final[index] = '\0';
-	return (free(s1), free(s2), final);
-}
-
-char	*add_char(char *str, int c)
-{
-	char	*fstr;
-	size_t	len;
-	size_t	index;
-
-	if (!str)
-		return (NULL);
-	len = ft_strlen(str);
-	fstr = malloc(len + (c != 0) + 1);
-	if (!fstr)
-		return (free(str), NULL);
-	index = 0;
-	while (index < len)
-	{
-		fstr[index] = str[index];
-		index++;
-	}
-	if (c != 0)
-		fstr[index++] = (char)c;
-	fstr[index] = '\0';
-	free(str);
-	return (fstr);
+	return (len);
 }
 
 char	*ft_utoa(unsigned int n)
 {
-	char			*res;
-	unsigned long	nb;
-	size_t			len;
+	char	*str;
+	int		len;
+	int		index;
 
-	nb = n;
-	len = ft_nbrlen(nb);
-	res = malloc(len + 1);
-	if (!res)
+	len = nbrlen_u(n);
+	str = malloc(len + 1);
+	if (!str)
 		return (NULL);
-	res[len] = '\0';
-	if (nb == 0)
-		res[--len] = '0';
-	while (nb > 0)
+	str[len] = '\0';
+	index = len - 1;
+	if (n == 0)
+		str[index--] = '0';
+	while (n > 0)
 	{
-		res[--len] = (nb % 10) + '0';
-		nb /= 10;
+		str[index--] = (n % 10) + '0';
+		n /= 10;
 	}
-	return (res);
+	return (str);
 }
