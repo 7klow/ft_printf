@@ -1,18 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_hex.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/01 10:48:56 by ncontrem          #+#    #+#             */
+/*   Updated: 2025/11/01 12:27:53 by ncontrem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 #include "libft/libft.h"
-
-static void	str_toupper(char *s)
-{
-	int	index;
-
-	index = 0;
-	while (s[index])
-	{
-		if (s[index] >= 'a' && s[index] <= 'z')
-			ft_toupper(s[index]);
-		index++;
-	}
-}
 
 static int	hexa_len(unsigned long n)
 {
@@ -53,22 +52,15 @@ char	*addr_hexa(void *addr)
 	return (str);
 }
 
-char	*int_hexa(unsigned int nb, int is_upper)
+char	*hexa_lower(unsigned int nb)
 {
-	char	*str;
-	int		len;
-	unsigned int	tmp;
-	int		index;
+	char			*str;
+	int				len;
+	int				index;
 
 	if (nb == 0)
 		return (ft_strdup("0"));
-	tmp = nb;
-	len = 0;
-	while (tmp > 0)
-	{
-		tmp /= 16;
-		len++;
-	}
+	len = hexa_len(nb);
 	str = malloc(len + 1);
 	if (!str)
 		return (NULL);
@@ -79,7 +71,27 @@ char	*int_hexa(unsigned int nb, int is_upper)
 		str[index--] = "0123456789abcdef"[nb % 16];
 		nb /= 16;
 	}
-	if (is_upper)
-		str_toupper(str);
+	return (str);
+}
+
+char	*hexa_upper(unsigned int nb)
+{
+	char			*str;
+	int				len;
+	int				index;
+
+	if (nb == 0)
+		return (ft_strdup("0"));
+	len = hexa_len(nb);
+	str = malloc(len + 1);
+	if (!str)
+		return (NULL);
+	str[len] = '\0';
+	index = len - 1;
+	while (nb > 0)
+	{
+		str[index--] = "0123456789ABCDEF"[nb % 16];
+		nb /= 16;
+	}
 	return (str);
 }

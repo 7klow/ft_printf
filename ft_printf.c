@@ -6,17 +6,16 @@
 /*   By: ncontrem <ncontrem@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:43:49 by ncontrem          #+#    #+#             */
-/*   Updated: 2025/10/30 14:19:01 by ncontrem         ###   ########.fr       */
+/*   Updated: 2025/11/01 12:27:36 by ncontrem         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-
 static int	is_valid_symb(char c)
 {
-	return (c == 'c' || c == 's' || c == 'p' ||
-			c == 'd' || c == 'i' || c == 'u' ||
+	return (c == 'c' || c == 's' || c == 'p' || \
+			c == 'd' || c == 'i' || c == 'u' || \
 			c == 'x' || c == 'X' || c == '%');
 }
 
@@ -32,7 +31,7 @@ static int	ft_putstr_count(char *s)
 	int	index;
 
 	if (!s)
-		s = "(null)";
+		return (write(1, "(null)", 6));
 	count = 0;
 	index = 0;
 	while (s[index])
@@ -51,15 +50,15 @@ static int	format_percent(va_list args, char c)
 	else if (c == 's')
 		return (ft_putstr_count(va_arg(args, char *)));
 	else if (c == 'p')
-		return (ft_putstr_count(addr_hexa(va_arg(args, void *))));
+		return (ft_putstr_count_free(addr_hexa(va_arg(args, void *))));
 	else if (c == 'd' || c == 'i')
-		return (ft_putstr_count(ft_itoa(va_arg(args, int))));
+		return (ft_putstr_count_free(ft_itoa(va_arg(args, int))));
 	else if (c == 'u')
-		return (ft_putstr_count(ft_utoa(va_arg(args, unsigned int))));
+		return (ft_putstr_count_free(ft_utoa(va_arg(args, unsigned int))));
 	else if (c == 'x')
-		return (ft_putstr_count(int_hexa(va_arg(args, unsigned int), 0)));
+		return (ft_putstr_count_free(hexa_lower(va_arg(args, unsigned int))));
 	else if (c == 'X')
-		return (ft_putstr_count(int_hexa(va_arg(args, unsigned int), 1)));
+		return (ft_putstr_count_free(hexa_upper(va_arg(args, unsigned int))));
 	else if (c == '%')
 		return (ft_putchar_count('%'));
 	return (0);
@@ -76,7 +75,8 @@ int	ft_printf(const char *str, ...)
 	count = 0;
 	while (str[index])
 	{
-		if (str[index] == '%' && str[index + 1] && is_valid_symb(str[index + 1]))
+		if (str[index] == '%' && str[index + 1] && \
+			is_valid_symb(str[index + 1]))
 		{
 			count += format_percent(args, str[index + 1]);
 			index += 2;
@@ -87,6 +87,8 @@ int	ft_printf(const char *str, ...)
 	va_end(args);
 	return (count);
 }
+
+// #include <limits.h>
 
 // int main(void)
 // {
@@ -103,7 +105,7 @@ int	ft_printf(const char *str, ...)
 // 		s = NULL;
 // 	d = -42;
 // 	u = 42;
-// 	x = 255;
+// 	x = INT_MAX;
 // 	ptr_null = 0;
 
 //     len1 = ft_printf("Char: %c\n", 0);
